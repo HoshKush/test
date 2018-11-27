@@ -1,5 +1,9 @@
 package announce;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
@@ -49,5 +53,12 @@ public class AnnounceDAO {
 		}
 		
 		return flag;
+	}
+	
+	public List<AnnounceDTO> list(Map map){
+		List list = new ArrayList();
+		
+		
+		return list;
 	}
 }
