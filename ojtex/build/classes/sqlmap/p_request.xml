@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="p_request">
+<insert id="create" parameterType="P_requestDTO">
+	insert into p_request(pr_num, u_id, c_id, pr_job, pr_salary, pr_date, pr_time, pr_endtime, pr_bonus, pr_sdate, pr_edate)
+	values((select nvl(max(pr_num), 0)+1 as pr_num from p_request), #{u_id}, #{c_id}, #{pr_job}, #{pr_salary}, sysdate,
+    	#{pr_time}, #{pr_endtime}, #{pr_bonus}, #{pr_sdate}, #{pr_edate})
+</insert>
+<select id="read" parameterType="int" resultType="P_requestDTO">
+	select pr_num, u_id, c_id, pr_job, pr_salary, pr_date, pr_time, pr_endtime, pr_bonus from p_request
+	where pr_num = #{pr_num}
+</select>
+<update id="update" parameterType="P_requestDTO">
+	update p_request set
+    pr_job = #{pr_job},
+    pr_salary = #{pr_salary},
+    pr_date = sysdate,
+    pr_time = #{pr_time},
+    pr_endtime = #{pr_endtime},
+    pr_bonus = #{pr_bonus},
+    pr_sdate = #{pr_sdate},
+    pr_edate = #{pr_edate}
+	where pr_num=#{pr_num}
+</update>
+<delete id="delete" parameterType="int">
+	delete from p_request
+	where pr_num=#{pr_num}
+</delete>
+</mapper>

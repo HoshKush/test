@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="u_review">
+<insert id="create" parameterType="U_reviewDTO">
+	insert into u_review (ur_num, ur_title, ur_content, u_ID, c_ID, ur_date)
+	values ((select nvl(max(ur_num), 0)+1 as ur_num from u_review),
+	#{ur_title}, #{ur_content}, #{u_ID}, #{c_ID}, sysdate)
+</insert>
+<select id="read" parameterType="int" resultType="U_reviewDTO">
+	select ur_num, ur_title, ur_content, u_ID, c_ID, ur_date
+	from u_review where ur_num = #{ur_num}
+</select>
+<update id="update" parameterType="U_reviewDTO">
+	update u_review set
+		ur_title = #{ur_title},
+    	ur_content = #{ur_content}
+	where ur_num = #{ur_num}
+</update>
+<delete id="delete" parameterType="int">
+	delete from u_review
+	where ur_num = #{ur_num}
+</delete>
+</mapper>
