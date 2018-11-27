@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="company">
+<resultMap type="CompanyDTO" id="oneMap">
+    	<result property="c_id" column="c_id"/>
+    	<result property="mname" column="mname"/>
+    	<result property="mphone" column="mphone"/>
+    	<result property="memail" column="memail"/>
+    	<result property="c_date" column="c_date"/>
+    	<result property="zipcode" column="zipcode"/>
+    	<result property="address" column="address"/>
+    	<result property="address2" column="address2"/>
+    	<result property="boss" column="boss"/>
+    	<result property="cname" column="cname"/>
+    	<result property="passwd" column="passwd"/>
+    	<result property="cnum" column="cnum"/>
+    </resultMap>
+ <insert id="create" parameterType="CompanyDTO">
+ 	insert into company (c_ID, cname, passwd, cnum, boss, address, address2, zipcode, mname, mphone, memail, c_date)
+	values(#{c_ID}, #{cname}, #{passwd}, #{cnum}, #{boss}, #{address}, #{address2}, #{zipcode}, #{mname},
+	#{mphone}, #{memail}, sysdate)
+ </insert>
+ <select id="read" parameterType="String" resultType="CompanyDTO">
+ 	select c_id, cname, passwd, boss, address, address2, zipcode, mname, mphone, memail, to_char(c_date, 'yyyy-MM-dd')
+ 	from company
+	where c_id = #{c_id}
+ </select>
+ <update id="update" parameterType="CompanyDTO">
+ 	update company set
+    address = #{address},
+    address2 = #{address2},
+    zipcode = #{zipcode},
+    mname = #{mname},
+    mphone = #{mphone},
+    memail = #{memail}' 
+	where c_id = #{c_id};
+ </update>
+ <delete id="delete" parameterType="String">
+ 	delete from company
+	where c_id = #{c_id}
+ </delete>
+
+</mapper>

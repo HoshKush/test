@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ur_comment">
+<insert id="create" parameterType="Ur_commentDTO">
+	insert into ur_comment (urc_num, urc_content, urc_date, urc_writer, ur_num)
+	values ((select nvl(max(urc_num), 0)+1 as urc_num from ur_comment), #{urc_content, sysdate, #{urc_writer}, #{ur_num})
+</insert>
+<select id="read" parameterType="int" resultType="Ur_commentDTO">
+	select urc_num, urc_content, urc_date, urc_writer, ur_num from ur_comment
+	where urc_num = #{urc_num}
+</select>
+<update id="update" parameterType="Ur_commentDTO">
+	update ur_comment set
+    urc_content = #{urc_content}
+	where urc_num = #{urc_num}
+</update>
+<delete id="delete" parameterType="int">
+	delete from ur_comment
+	where urc_num = #{urc_num}
+</delete>
+</mapper>
